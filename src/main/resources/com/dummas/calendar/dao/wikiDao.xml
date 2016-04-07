@@ -1,0 +1,52 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dummas.calendar.dao.WikiDao">
+    <sql id="select_clause">
+		r.id,
+		r.year,
+		r.month,
+		r.day,
+		r.country,
+		r.language,
+		r.content,
+		r.content_html,
+		r.genre		
+    </sql>
+    
+    
+       <insert id="addRecord" useGeneratedKeys="true" keyProperty="id"  parameterType="RecordInfo">
+		INSERT INTO record (
+			year,
+		    month,
+		 	day,
+			country,
+		 	language,
+		 	content,
+		 	content_html,
+		 	genre
+		) VALUES (
+			#{year,jdbcType=VARCHAR},
+			#{month,jdbcType=VARCHAR},
+			#{day,jdbcType=VARCHAR},
+			#{country,jdbcType=VARCHAR},
+			#{language,jdbcType=VARCHAR},
+			#{content,jdbcType=LONGVARCHAR},
+			#{content_html,jdbcType=LONGVARCHAR},
+			#{genre,jdbcType=VARCHAR}
+		)
+    </insert>
+   
+      
+      <select id="getRecordByYear"  resultType="RecordInfo">
+        SELECT 
+         <include refid="select_clause"/>
+        FROM  
+        	record r
+      </select>
+      
+      
+     <delete id="deleteRecord" parameterType="Integer">
+        DELETE FROM record WHERE id = #{id}
+     </delete>
+      
+      
+</mapper>
