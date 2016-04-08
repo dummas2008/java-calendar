@@ -1,5 +1,7 @@
 package com.dummas.calendar.service.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,15 @@ public class WikiServiceImpl implements WikiService {
 	@Override
 	public List<RecordInfo> getRecordByYear(String year) {
 		return wikiDao.getRecordByYear(year);
+	}
+
+	@Override
+	public List<RecordInfo> getRecordByDay(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		String month = Integer.toString(cal.get(Calendar.MONTH)+1);
+		String day = Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
+		return wikiDao.getRecordByDay(month, day);
 	}
 
 }

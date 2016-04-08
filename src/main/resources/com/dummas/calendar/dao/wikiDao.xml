@@ -36,11 +36,18 @@
     </insert>
    
       
-      <select id="getRecordByYear"  resultType="RecordInfo">
+      <select id="getRecordByYear" parameterType="String"  resultType="RecordInfo">
         SELECT 
          <include refid="select_clause"/>
         FROM  
-        	record r
+        	record r where  r.year=#{year,jdbcType=VARCHAR}
+      </select>
+      
+      <select id="getRecordByDay" parameterType="map"  resultType="RecordInfo">
+        SELECT 
+         <include refid="select_clause"/>
+        FROM  
+        	record r where  r.month=#{month,jdbcType=VARCHAR} AND r.day = #{day, jdbcType=VARCHAR}
       </select>
       
       
